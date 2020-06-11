@@ -1,5 +1,6 @@
 package com.bright.bookpluralsight;
 
+import android.net.Uri;
 import android.util.Log;
 
 import java.io.IOException;
@@ -16,14 +17,15 @@ public class ApiUtil {
     }
 
     //MARK: base url to call
-    public static final String BASE_URL = "https://www.googleapi.com/books/v1/volumes";
+    public static final String BASE_URL = "https://www.googleapis.com/books/v1/volumes";
+    public static final String QUERY_PARAM_KEY = "q";
 
     //MARK: build connection
     public static URL buildUrl(String title) {
-        String fullUrl = BASE_URL + "?q=" + title;
+        Uri uri = Uri.parse(BASE_URL).buildUpon().appendQueryParameter(QUERY_PARAM_KEY, title).build();
         URL url = null;
         try {
-            url = new URL(fullUrl);
+            url = new URL(uri.toString());
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
