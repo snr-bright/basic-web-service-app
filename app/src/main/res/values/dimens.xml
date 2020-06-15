@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="progress_margin">32dp</dimen>
     <dimen name="progress_height">4dp</dimen>
+    <dimen name="edit_text_radius">22dp</dimen>
 </resources>

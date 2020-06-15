@@ -1,29 +1,43 @@
 package com.bright.bookpluralsight;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.TextView;
+import android.view.View;
+
+import com.facebook.shimmer.Shimmer;
+import com.facebook.shimmer.ShimmerFrameLayout;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-    TextView text_view_result = null;
+    RecyclerView recyclerView = null;
+    ShimmerFrameLayout shimmerViewContainer = null;
+    ArrayList<Book> books = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        text_view_result = findViewById(R.id.text_view_result);
+        recyclerView = findViewById(R.id.recyclerView);
+        shimmerViewContainer = findViewById(R.id.shimmerViewContainer);
         URL url = ApiUtil.buildUrl("cook");
-        Log.e("URL", url.toString());
         new BooksQueryTask().execute(url);
     }
 
-    public class BooksQueryTask extends AsyncTask<URL,Void,String>{
+    public class BooksQueryTask extends AsyncTask<URL, Void, String> {
+
+        @Override
+        protected void onPreExecute() {
+            shimmerViewContainer.setVisibility(View.VISIBLE);
+            shimmerViewContainer.startShimmer();
+        }
+
         @Override
         protected String doInBackground(URL... urls) {
             URL searchUrl = urls[0];
@@ -36,9 +50,15 @@ public class MainActivity extends AppCompatActivity {
             }
             return result;
         }
+
         @Override
-        protected void onPostExecute(String s) {
-            text_view_result.setText(s);
+        protected void onPostExecute(String result) {
+            books.addAll(ApiUtil.getBooksFromJson(result));
+
+            shimmerViewContainer.setVisibility(View.GONE);
+            shimmerViewContainer.stopShimmer();
+
+            recyclerView.setVisibility(View.VISIBLE);
         }
     }
 }

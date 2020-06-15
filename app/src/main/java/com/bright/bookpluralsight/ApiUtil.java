@@ -3,10 +3,15 @@ package com.bright.bookpluralsight;
 import android.net.Uri;
 import android.util.Log;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -52,6 +57,37 @@ public class ApiUtil {
         } finally {
             httpsURLConnection.disconnect();
         }
+    }
+
+    //MARK: return list of books from json
+    public static ArrayList<Book> getBooksFromJson(String books) {
+        final String ID = "id";
+        final String TITLE = "title";
+        final String ITEMS = "items";
+        final String VOLUME_INFO = "volumeInfo";
+        final String AUTHOR = "authors";
+        ArrayList<Book> listOfBooks = new ArrayList<>();
+        try {
+            JSONObject jsonBooks = new JSONObject(books);
+            JSONArray jsonArray = jsonBooks.getJSONArray(ITEMS);
+            int numberOfBooks = jsonArray.length();
+            //MARK: loop  over json books
+            for (int i = 0; i < numberOfBooks; i++) {
+                JSONObject jsonObjectBook = jsonArray.getJSONObject(i);
+                JSONObject jsonObjectVolumeInfo = jsonObjectBook.getJSONObject(VOLUME_INFO);
+                int numberOfAuthors = jsonObjectVolumeInfo.length();
+                String[] authors = new String[numberOfAuthors];
+                for (int j = 0; j < numberOfAuthors; j++) {
+                    authors[j] = jsonObjectVolumeInfo.getJSONArray(AUTHOR).get(j).toString();
+                }
+                Book book = new Book(jsonObjectBook.getString(ID), jsonObjectBook.getString(TITLE), authors);
+                listOfBooks.add(book);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return listOfBooks;
     }
 
 }
