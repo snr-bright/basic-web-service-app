@@ -66,6 +66,12 @@ public class ApiUtil {
         final String ITEMS = "items";
         final String VOLUME_INFO = "volumeInfo";
         final String AUTHOR = "authors";
+        final String PUBLISHER = "publisher";
+        final String PUBLISHED_DATE = "publishedDate";
+        final String DESCRIPTION = "description";
+        final String IMAGE_LINK = "imageLinks";
+        final String IMAGE_THUMB = "thumbnail";
+        final String SM_IMAGE_THUMB = "smallThumbnail";
         ArrayList<Book> listOfBooks = new ArrayList<>();
         try {
             JSONObject jsonBooks = new JSONObject(books);
@@ -75,12 +81,16 @@ public class ApiUtil {
             for (int i = 0; i < numberOfBooks; i++) {
                 JSONObject jsonObjectBook = jsonArray.getJSONObject(i);
                 JSONObject jsonObjectVolumeInfo = jsonObjectBook.getJSONObject(VOLUME_INFO);
-                int numberOfAuthors = jsonObjectVolumeInfo.length();
+                int numberOfAuthors = jsonObjectVolumeInfo.getJSONArray(AUTHOR).length();
                 String[] authors = new String[numberOfAuthors];
                 for (int j = 0; j < numberOfAuthors; j++) {
                     authors[j] = jsonObjectVolumeInfo.getJSONArray(AUTHOR).get(j).toString();
                 }
-                Book book = new Book(jsonObjectBook.getString(ID), jsonObjectBook.getString(TITLE), authors);
+                JSONObject jsonObjectImageInfo = jsonObjectVolumeInfo.getJSONObject(IMAGE_LINK);
+                String thumbnail = jsonObjectImageInfo.getString(IMAGE_THUMB);
+                String smThumbnail = jsonObjectImageInfo.getString(SM_IMAGE_THUMB);
+                Book book = new Book(jsonObjectBook.getString(ID), jsonObjectVolumeInfo.getString(TITLE), authors, jsonObjectVolumeInfo.getString(PUBLISHER), jsonObjectVolumeInfo.getString(PUBLISHED_DATE), jsonObjectVolumeInfo.getString(DESCRIPTION), thumbnail, smThumbnail);
+                Log.e("BOOK", book.toString());
                 listOfBooks.add(book);
             }
         } catch (JSONException e) {

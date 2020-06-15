@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="@dimen/activity_horizontal_margin">
@@ -22,12 +21,12 @@
         android:layout_height="50dp"
         android:layout_marginStart="25dp"
         android:layout_marginLeft="25dp"
-        android:src="@color/colorPrimary"
-        app:civ_border_color="#FF000000"
+        android:src="@color/colorLongText"
+        app:civ_border_color="@color/colorWhite"
         app:civ_border_width="2dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="MissingConstraints" />
+        />
 
     <TextView
         android:id="@+id/textViewTitle"
@@ -38,6 +37,7 @@
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
         android:ellipsize="end"
         android:fontFamily="@font/roboto_light"
+        android:textColor="@color/colorWhite"
         android:maxLines="1"
         android:text="@string/app_name"
         app:layout_constraintEnd_toEndOf="parent"
@@ -49,14 +49,17 @@
         android:id="@+id/textViewSummary"
         style="@style/TextAppearance.AppCompat.Small"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginStart="@dimen/activity_horizontal_margin"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
         android:layout_marginTop="@dimen/activity_horizontal_margin"
         android:ellipsize="end"
         android:fontFamily="@font/roboto_thin"
+        android:textColor="@color/colorWhite"
         android:maxLines="4"
         android:text="@string/app_name"
+        android:layout_marginBottom="@dimen/activity_horizontal_margin"
+        app:layout_constraintBottom_toTopOf="@+id/textViewMore"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toRightOf="@+id/imageViewBookCover"
         app:layout_constraintStart_toEndOf="@+id/imageViewBookCover"
@@ -66,6 +69,7 @@
         android:id="@+id/textViewMore"
         style="@style/TextAppearance.AppCompat.Small"
         android:layout_width="0dp"
+        android:textColor="@color/colorWhite"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/activity_horizontal_margin"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
