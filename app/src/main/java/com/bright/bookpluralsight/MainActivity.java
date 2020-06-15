@@ -1,6 +1,7 @@
 package com.bright.bookpluralsight;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.widget.ContentLoadingProgressBar;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.AsyncTask;
@@ -18,6 +19,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerView = null;
     ShimmerFrameLayout shimmerViewContainer = null;
+    ContentLoadingProgressBar progressBar = null;
     ArrayList<Book> books = new ArrayList<>();
 
     @Override
@@ -26,7 +28,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         recyclerView = findViewById(R.id.recyclerView);
         shimmerViewContainer = findViewById(R.id.shimmerViewContainer);
-        URL url = ApiUtil.buildUrl("cook");
+        progressBar = findViewById(R.id.progressBar);
+
+    }
+
+    private void startNetworkCall(String text) {
+        progressBar.setVisibility(View.VISIBLE);
+        URL url = ApiUtil.buildUrl(text);
         new BooksQueryTask().execute(url);
     }
 

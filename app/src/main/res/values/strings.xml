@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">Book Pluralsight</string>
-    <string name="no_data">no bboks found</string>
+    <string name="app_name">Book PluralSight</string>
+    <string name="no_data">no books found</string>
 </resources>

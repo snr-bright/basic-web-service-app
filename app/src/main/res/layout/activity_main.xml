@@ -39,6 +39,7 @@
                     android:layout_width="match_parent"
                     android:layout_marginTop="@dimen/activity_horizontal_margin"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_light"
                     android:gravity="center"
                     android:padding="4dp"
                     android:text="EXPLORE"
@@ -48,12 +49,15 @@
                     android:textStyle="bold" />
 
                 <EditText
+                    android:id="@+id/editTextSearch"
                     android:layout_width="match_parent"
                     android:layout_height="44dp"
                     android:layout_gravity="center"
-                    android:gravity="center"
+                    android:fontFamily="@font/roboto_thin"
+                    android:gravity="center_vertical"
                     android:hint="Search for a book?"
                     android:background="@drawable/edit_text_bg"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
                     android:padding="8dp"
                     android:textColor="@color/colorWhite"
                     android:textColorHint="@color/colorWhite"
@@ -141,8 +145,9 @@
             android:layout_margin="@dimen/activity_horizontal_margin"
             android:gravity="center"
             android:text="@string/no_data"
+            android:textColor="@color/colorWhite"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:visibility="gone" />
+            android:visibility="visible" />
 
     </RelativeLayout>
 
